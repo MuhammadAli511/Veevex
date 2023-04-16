@@ -1,11 +1,12 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { Cart, ElectronicProducts, Home, JeweleryProducts, MensProducts, NotImplemented, ProductDetail, WomensProducts } from "./pages";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { Cart, ElectronicProducts, Home, JeweleryProducts, LandingPage, MensProducts, NotImplemented, ProductDetail, WomensProducts } from "./pages";
 function App() {
   
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/products" element={<Home />} />
         <Route path="/men-clothing" element={<MensProducts />} />
         <Route path="/women-clothing" element={<WomensProducts />} />
         <Route path="/jewelery" element={<JeweleryProducts />} />

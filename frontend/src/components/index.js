@@ -6,6 +6,6 @@ export {
     Navbar,
     Categories,
     ProductCard,
-    Products
+    Products,
 };
 
