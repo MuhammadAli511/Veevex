@@ -1,5 +1,5 @@
 const express = require('express')
-const userRoutes = require('./userRoutes')
+const customerRoutes = require('./customerRoutes')
 const router = express.Router()
 
 
@@ -8,6 +8,6 @@ router.get('/status',(req,res) => {
     res.status(200).send("App Status : Working")
 })
 
-router.use('/userRoute',userRoutes)
+router.use('/customerRoute',customerRoutes)
 
 module.exports = router

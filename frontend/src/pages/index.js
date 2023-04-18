@@ -3,9 +3,11 @@ import ElectronicProducts from './ElectronicProducts';
 import Home from './Home';
 import JeweleryProducts from './JeweleryProducts';
 import LandingPage from './LandingPage';
+import Login from './Login';
 import MensProducts from './MensProducts';
 import NotImplemented from './NotImplemented';
 import ProductDetail from './ProductDetail';
+import SignUp from './SignUp';
 import WomensProducts from './WomensProducts';
 export {
     Home,
@@ -17,5 +19,7 @@ export {
     ElectronicProducts,
     NotImplemented,
     LandingPage,
+    SignUp,
+    Login,
 };
 

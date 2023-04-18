@@ -1,47 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
+import { testimonials } from "../../constants";
 import { logo } from "../assets";
 
 const LandingPage = () => {
-    const testimonials = [
-        {
-            id: 1,
-            text: "I love Veevex! The customer service is amazing and their products are top-notch.",
-            name: "John Doe",
-            location: "Los Angeles, CA",
-        },
-        {
-            id: 2,
-            text: "I have been a loyal customer of Veevex for years. Their products never disappoint!",
-            name: "Jane Smith",
-            location: "New York, NY",
-        },
-        {
-            id: 3,
-            text: "I recently purchased a product from Veevex and I couldn't be happier with my experience. Highly recommend!",
-            name: "Mike Johnson",
-            location: "Chicago, IL",
-        },
-        {
-            id: 4,
-            text: "I love Veevex! The customer service is amazing and their products are top-notch.",
-            name: "John Doe",
-            location: "Los Angeles, CA",
-        },
-        {
-            id: 5,
-            text: "I have been a loyal customer of Veevex for years. Their products never disappoint!",
-            name: "Jane Smith",
-            location: "New York, NY",
-        },
-        {
-            id: 6,
-            text: "I recently purchased a product from Veevex and I couldn't be happier with my experience. Highly recommend!",
-            name: "Mike Johnson",
-            location: "Chicago, IL",
-        },
-    ];
     return (
         <div>
             <nav className="flex items-center justify-between py-4 px-6 bg-white shadow-md">
@@ -71,15 +34,15 @@ const LandingPage = () => {
                 <div className="mt-8" style={{ overflow: "hidden" }}>
                     <h2 className="text-2xl font-bold my-5 text-center">What Our Customers Are Saying</h2>
                     <Slider
-                        dots={true}
                         infinite={true}
-                        speed={500}
+                        speed={8000}
                         slidesToShow={3}
                         slidesToScroll={1}
                         autoplay={true}
-                        autoplaySpeed={3000}
-                        pauseOnHover={true}
-                        className="grid grid-cols-1"
+                        autoplaySpeed={0}
+                        pauseOnHover={false}
+                        cssEase="linear"
+                        className="grid grid-cols-1 mt-20"
                     >
                         {testimonials.map((testimonial) => (
                             <div key={testimonial.id} className="bg-white shadow-md p-4 rounded border border-gray-300">
