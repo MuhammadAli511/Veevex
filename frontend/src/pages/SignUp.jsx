@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Helmet } from 'react-helmet';
 import { Link, useNavigate } from "react-router-dom";
 import { logo } from "../assets";
 import { registerUser } from "../helper";
@@ -27,9 +26,15 @@ const SignUp = () => {
         try {
             setIsLoading(true);
             const response = await registerUser({ firstName, lastName, email, password });
-            navigate("/login");
-        } catch (error) {
-            alert(error.message);
+            if (!response) {
+                alert("Can not reach Server");
+            }
+            if (response.status === 200) {
+                navigate("/login");
+            }
+            else {
+                alert(response.message);
+            }
         } finally {
             setIsLoading(false);
         }

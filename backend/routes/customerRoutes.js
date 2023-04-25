@@ -1,5 +1,7 @@
 const express = require('express')
 const router = express.Router()
+const {signup, login} = require('../controllers/customerController')
+
 
 // GET  api/customerRoute/status/
 router.get('/status',(req,res) => {
@@ -7,10 +9,9 @@ router.get('/status',(req,res) => {
 })
 
 // POST  api/customerRoute/signup/
-router.post('/signup',(req,res) => {
-    console.log(req.body)
-})
+router.post('/signup',signup)
 
-
+// POST  api/customerRoute/login/
+router.post('/login',login)
 
 module.exports = router

@@ -1,17 +1,41 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { logo } from "../assets";
+import { loginUser } from "../helper";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
 
-  const handleSubmit = (e) => {
+  const { email, password } = formData;
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const onChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }))
+  }
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted with data:", {
-      email,
-      password,
-    });
+    try {
+      setIsLoading(true);
+      const response = await loginUser({ email, password });
+      if (!response) {
+        alert("Can not reach Server");
+      }
+      if (response.status === 200) {
+        navigate("/products");
+      }
+      else {
+        alert(response.message);
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -51,7 +75,7 @@ const Login = () => {
               id="email"
               name="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={onChange}
               className="border border-gray-300 p-2 rounded w-64"
               required
             />
@@ -68,17 +92,13 @@ const Login = () => {
               id="password"
               name="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={onChange}
               className="border border-gray-300 p-2 rounded w-64"
               required
             />
           </div>
-          <button
-            type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          >
-            Log In
-          </button>
+          <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            {isLoading ? <div className="loader"></div> : "Login"}</button>
         </form>
       </div>
     </div>
