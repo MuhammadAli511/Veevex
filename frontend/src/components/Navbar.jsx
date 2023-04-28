@@ -6,16 +6,27 @@ import { logo } from "../assets";
 
 const Navbar = ({ onChange }) => {
   const cart = useSelector((state) => state.cart);
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.href = "/login";
+  };
+  const handleRedirection = () => {
+    if (localStorage.getItem("token")) {
+      window.location.href = "/products";
+      return;
+    }
+    window.location.href = "/";
+  }
   return (
     <nav className="flex items-center justify-between py-4 px-6 bg-white shadow-md">
       <div className="flex items-center">
-        <Link to="/">
+        <button onClick={handleRedirection}>
         <img
           src={ logo }
           alt="Logo"
           className="h-8 w-28 mr-2"
         />
-        </Link>
+        </button>
       </div>
       <div className="flex items-center justify-center">
         <div className="relative w-full max-w-xs">
@@ -31,14 +42,16 @@ const Navbar = ({ onChange }) => {
           />
         </div>
       </div>
-      <div>
+      <div className="flex items-center">
         <Link to="/cart" className="flex items-center text-sm font-semibold py-2 px-3 rounded border border-gray-900 text-gray-900">
           <FaShoppingCart className="mr-1" />
           Cart
           &nbsp;
           <span className="navbar-cart-count">{cart.length}</span>
         </Link>
-        
+        <button onClick={handleLogout} className="flex items-center text-sm font-semibold py-2 px-3 rounded border border-gray-900 text-gray-900 ml-5">
+          Logout
+        </button>
       </div>
     </nav>
   );

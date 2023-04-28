@@ -3,6 +3,7 @@ import { FaShoppingCart } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import { addNewCart } from "../helper/index";
 import { removeFromCart, resetCart } from "../redux/actions";
 
 const Cart = () => {
@@ -17,6 +18,16 @@ const Cart = () => {
     };
   };
   const handleReset = () => {
+    dispatch(resetCart());
+  };
+  const placeOrder = () => {
+    const email = localStorage.getItem("email");
+    const value = {
+      product: cart,
+      customer: email,
+      price: totalPrice,
+    }
+    addNewCart(value);
     dispatch(resetCart());
   };
   return (
@@ -110,7 +121,7 @@ const Cart = () => {
                   </div>
                   <div className="mt-8">
                     <button className="bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-md text-base font-medium"
-                      onClick={handleReset}
+                      onClick={placeOrder}
                     >
                       Checkout
                     </button>
@@ -120,14 +131,7 @@ const Cart = () => {
                       <button className="bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-md text-base font-medium">
                         Continue Shopping
                       </button>
-                    </Link>
-                  </div>
-                  <div className="mt-8">
-                    <Link to="*">
-                      <button className="bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-md text-base font-medium">
-                        Sign In and Checkout
-                      </button>
-                    </Link>
+                  </Link>
                   </div>
                 </div>
               )}

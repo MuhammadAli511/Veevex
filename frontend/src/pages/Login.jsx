@@ -28,6 +28,8 @@ const Login = () => {
         alert("Can not reach Server");
       }
       if (response.status === 200) {
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('email', response.email);
         navigate("/products");
       }
       else {

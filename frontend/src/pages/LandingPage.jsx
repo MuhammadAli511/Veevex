@@ -28,9 +28,6 @@ const LandingPage = () => {
                 <p className="text-lg mb-8">
                     We offer a wide range of products to suit all your needs. From electronics to fashion, we've got it all.
                 </p>
-                <Link to="/products" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    Browse Products
-                </Link>
                 <div className="mt-8" style={{ overflow: "hidden" }}>
                     <h2 className="text-2xl font-bold my-5 text-center">What Our Customers Are Saying</h2>
                     <Slider
@@ -42,7 +39,7 @@ const LandingPage = () => {
                         autoplaySpeed={0}
                         pauseOnHover={false}
                         cssEase="linear"
-                        className="grid grid-cols-1 mt-20"
+                        className="grid grid-cols-1 mt-10"
                     >
                         {testimonials.map((testimonial) => (
                             <div key={testimonial.id} className="bg-white shadow-md p-4 rounded border border-gray-300">

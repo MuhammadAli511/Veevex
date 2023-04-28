@@ -1,5 +1,7 @@
 const express = require('express')
 const customerRoutes = require('./customerRoutes')
+const productRoutes = require('./productRoutes')
+const cartRoutes = require('./cartRoutes')
 const router = express.Router()
 
 
@@ -9,5 +11,7 @@ router.get('/status',(req,res) => {
 })
 
 router.use('/customerRoute',customerRoutes)
+router.use('/productRoute',productRoutes)
+router.use('/cartRoute',cartRoutes)
 
 module.exports = router

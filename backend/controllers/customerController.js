@@ -4,6 +4,10 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
 
+function generateToken(email){
+    const token =  jwt.sign({email}, process.env.JWT_SECRET, {expiresIn: '30d'})
+    return token
+}
 
 const signup = asyncHandler(async(req,res) => {
     const {firstName,lastName,email,password} = await req.body
@@ -90,17 +94,96 @@ const login = asyncHandler(async(req,res) => {
         firstName: customer.firstName,
         lastName: customer.lastName,
         email: customer.email,
-        token: generateToken(customer._id)
+        token: generateToken(customer.email)
     }
     res.status(200).json(data)
 })
 
-function generateToken(id){
-    return jwt.sign({id}, process.env.JWT_SECRET, {expiresIn: '30d'})
-}
+const getAllCustomers = asyncHandler(async(req,res) => {
+    const customers = await Customer.find({})
+    const data = {
+        status: 200,
+        customers:  customers
+    }
+    res.status(200).json(data)
+})
 
+const getSingleCustomer = asyncHandler(async(req,res) => {
+    const customer = await Customer.findOne({email: req.params.email})
+    if (!customer){
+        const data = {
+            status: 404,
+            message: 'Error: Customer not found'
+        }
+        res.status(404).send(data)
+        return
+    }
+    const data = {
+        status: 200,
+        customer: customer
+    }
+    res.status(200).json(data)
+})
+
+const getLimitCustomers = asyncHandler(async(req,res) => {
+    const customers = await Customer.find({}).limit(req.params.limit)
+    const data = {
+        status: 200,
+        customers:  customers
+    }
+    res.status(200).json(data)
+})
+
+const sortCustomers = asyncHandler(async(req,res) => {
+    const customers = await Customer.find({}).sort(req.params.sort)
+    const data = {
+        status: 200,
+        customers:  customers
+    }
+    res.status(200).json(data)
+})
+
+const updateCustomers = asyncHandler(async(req,res) => {
+    const customer = await Customer.findOneAndUpdate({email: req.params.email}, req.body, {new: true})
+    if (!customer){
+        const data = {
+            status: 404,
+            message: 'Error: Customer not found'
+        }
+        res.status(404).send(data)
+        return
+    }
+    const data = {
+        status: 200,
+        customer: customer
+    }
+    res.status(200).json(data)
+})
+
+const deleteCustomers = asyncHandler(async(req,res) => {
+    const customer = await Customer.findOneAndDelete({email: req.params.email})
+    if (!customer){
+        const data = {
+            status: 404,
+            message: 'Error: Customer not found'
+        }
+        res.status(404).send(data)
+        return
+    }
+    const data = {
+        status: 200,
+        customer: customer
+    }
+    res.status(200).json(data)
+})
 
 module.exports = {
     signup,
-    login
+    login,
+    getAllCustomers,
+    getSingleCustomer,
+    getLimitCustomers,
+    sortCustomers,
+    updateCustomers,
+    deleteCustomers
 }

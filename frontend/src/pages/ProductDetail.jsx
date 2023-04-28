@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import { getSingleProduct } from "../helper/index";
 import { addToCart } from "../redux/actions";
 
 const ProductDetail = () => {
@@ -13,10 +14,16 @@ const ProductDetail = () => {
     const { id } = useParams();
 
     useEffect(() => {
-        fetch(`https://fakestoreapi.com/products/${id}`)
-            .then((response) => response.json())
-            .then((data) => setProduct(data));
-
+        const fetchProduct = async () => {
+            const response = await getSingleProduct(id);
+            if (data.message === "Unauthorized"){
+                alert("You are not logged in. Please login to continue.");
+                window.location.href = "/login";
+                return;
+              }
+            setProduct(response.product[0]);
+        };
+        fetchProduct();
     }, [id]);
 
     const handleColorChange = (color) => {
@@ -28,7 +35,6 @@ const ProductDetail = () => {
     };
 
     const handleAddToCart = () => {
-        console.log("Added to cart");
         dispatch(addToCart(product, selectedQuantity));
     };
 

@@ -1,15 +1,13 @@
 const Products = require('../models/product')
-const fs = require('fs')
-const path = require('path')
-const filePath = path.join(__dirname, 'products.json')
 const connectDB = require('../config/db')
+const axios = require('axios')
 
 connectDB()
 
 const addProduct = async () => {
     try {
-        const data = fs.readFileSync(filePath, 'utf-8')
-        const products = JSON.parse(data)
+        const response = await axios.get('https://fakestoreapi.com/products');
+        const products = response.data;
         await Products.deleteMany()
         await Products.insertMany(products)
         console.log('Data imported')
